@@ -1,7 +1,7 @@
 export default function Localization() {
   return (
-    <div className="">
-     
+    <div className="p-2">
+     oiiiiii
     </div>
   );
 }
