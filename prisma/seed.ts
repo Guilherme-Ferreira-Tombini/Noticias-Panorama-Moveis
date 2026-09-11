@@ -14,12 +14,6 @@ const adapter = new PrismaPg({
 const prisma = new PrismaClient({ adapter })
 
 async function main() {
-  const deletedAds = await prisma.advertisements.deleteMany({})
-  console.log(`${deletedAds.count} anúncios removidos`)
-
-  const deletedNews = await prisma.news.deleteMany({})
-  console.log(`${deletedNews.count} notícias removidas`)
-
   const ads = [
     {
       title: 'Super Oferta',
