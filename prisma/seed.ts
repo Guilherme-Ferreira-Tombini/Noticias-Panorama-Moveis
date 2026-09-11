@@ -48,17 +48,17 @@ async function main() {
   const noticies = [
     {
       title: 'Nova funcionalidade lançada!',
-      image: '/logo.png',
+      image: '/noticia1.png',
       description: 'Confira as novas funcionalidades que adicionamos ao sistema para melhorar sua experiência.'
     },
     {
       title: 'Atualização de segurança importante',
-      image: '/logo.png',
+      image: '/noticia2.png',
       description: 'Lançamos uma atualização de segurança crítica. Recomendamos que todos os usuários atualizem o sistema.'
     },
     {
       title: 'Parceria estratégica anunciada',
-      image: '/logo.png',
+      image: '/noticia1.png',
       description: 'Fechamos uma nova parceria que trará benefícios exclusivos para nossos clientes.'
     },
     {
@@ -68,7 +68,7 @@ async function main() {
     },
     {
       title: 'Workshop gratuito de tecnologia',
-      image: '/logo.png',
+      image: '/noticia2.png',
       description: 'Participe do nosso workshop gratuito sobre as tendências tecnológicas para 2025.'
     },
   ]

@@ -1,19 +1,29 @@
 import prisma from "@/prisma/db"
 
+interface NewsItem {
+  id: number,
+  title: string,
+  image: string | null,
+  description: string,
+  date: Date
+}
+
 export default async function NewsPage() {
   const news = await prisma.news.findMany({
     orderBy: { date: 'desc' },
   })
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Notícias</h1>
-      
+    <div className="container mx-auto p-10">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {news.map((item) => (
-          <div key={item.id} className="border rounded-lg p-4 shadow">
+        {news.map((item: NewsItem) => (
+          <div key={item.id} className="rounded-lg p-4 shadow">
             {item.image && (
-              <img src={item.image} alt={item.title} className="w-full h-48 object-cover rounded mb-2" />
+              <img 
+                src={item.image} 
+                alt={item.title} 
+                className="w-full h-48 object-cover rounded mb-2" 
+              />
             )}
             <h2 className="text-xl font-semibold">{item.title}</h2>
             <p className="text-gray-600 mt-2">{item.description}</p>

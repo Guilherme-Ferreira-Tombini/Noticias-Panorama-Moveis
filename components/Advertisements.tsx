@@ -30,7 +30,7 @@ export default function Advertisements({ advertisements = [] }: { advertisements
     })
 
   return (
-    <div className="w-[80%] mt-5">
+    <div className="w-[80%] pt-10">
       {advertisements.length > 0 ? (
         <Swiper
           modules={[Pagination, Autoplay]}
