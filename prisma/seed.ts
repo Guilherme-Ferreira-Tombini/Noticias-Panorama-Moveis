@@ -30,7 +30,7 @@ async function main() {
       description: 'Aproveite descontos de até 50% em toda a loja!',
       isActive: true,
       startDate: new Date('2025-01-01'),
-      endDate: new Date('2025-03-31'),
+      endDate: new Date('2026-10-31'),
     },
     {
       title: 'Desconto Especial para Novos Clientes',
@@ -39,7 +39,7 @@ async function main() {
       description: '10% de desconto na primeira compra. Cadastre-se já!',
       isActive: true,
       startDate: new Date('2025-02-01'),
-      endDate: new Date('2025-12-31'),
+      endDate: new Date('2026-10-31'),
     },
     {
       title: 'Lançamento Exclusivo',
@@ -48,7 +48,7 @@ async function main() {
       description: 'Novo produto disponível com frete grátis para todo o Brasil.',
       isActive: true,
       startDate: new Date('2025-04-15'),
-      endDate: new Date('2025-06-30'),
+      endDate: new Date('2026-10-31'),
     },
     {
       title: 'Black Friday Antecipada',
@@ -57,7 +57,7 @@ async function main() {
       description: 'Ofertas imperdíveis antes da hora. Corre que é por tempo limitado!',
       isActive: false,
       startDate: new Date('2025-11-01'),
-      endDate: new Date('2025-11-30'),
+      endDate: new Date('2026-10-31'),
     },
     {
       title: 'Promoção Relâmpago',
@@ -75,7 +75,7 @@ async function main() {
       description: 'Assine o plano anual e ganhe 3 meses grátis.',
       isActive: true,
       startDate: new Date('2025-03-01'),
-      endDate: null,
+      endDate: new Date('2026-10-31'),
     },
   ]
 
