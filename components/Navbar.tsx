@@ -17,7 +17,7 @@ export default function Navbar() {
           </Link>
 
           <div>
-            <Link href={"/Localization"}>
+            <Link href={"/WeatherForecast"}>
                 Previsão do tempo
             </Link>
           </div>
