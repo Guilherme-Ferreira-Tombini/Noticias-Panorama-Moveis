@@ -3,6 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 
 import { notFound } from "next/navigation"
+import { toDataUrl } from "@/app/lib/image"
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -18,11 +19,13 @@ export default async function NewsDetails({ params }: PageProps ) {
 
   if (!news) return notFound();
 
+  const src = toDataUrl(news.image, news.imageMime)
+
   return (
     <div className="w-[100%] h-auto flex flex-col justify-center p-7">
-      {news.image && (
+      {src && (
         <img
-          src={news.image}
+          src={src}
           alt={news.title}
           className="w-[100%] lg:h-[500px] object-cover rounded rounded-md mb-10"
         />
