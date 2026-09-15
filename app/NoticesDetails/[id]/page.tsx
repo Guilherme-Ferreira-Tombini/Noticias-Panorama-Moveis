@@ -1,50 +1,60 @@
 import prisma from "@/prisma/db"
 import Link from "next/link"
 import Image from "next/image"
-
 import { notFound } from "next/navigation"
+
 import { toDataUrl } from "@/app/lib/image"
+import { formatDate } from "@/app/lib/date"
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
-export default async function NewsDetails({ params }: PageProps ) {
-  const { id } = await params;
-  const newsId = Number(id);
+export default async function NewsDetails({ params }: PageProps) {
+  const { id } = await params
+  const newsId = Number(id)
 
   const news = await prisma.news.findUnique({
-    where: { id: newsId },
+    where: {
+      id: newsId,
+    },
   })
 
-  if (!news) return notFound();
+  if (!news) {
+    notFound()
+  }
 
   const src = toDataUrl(news.image, news.imageMime)
 
   return (
-    <div className="w-[100%] h-auto flex flex-col justify-center p-7">
+    <div className="flex h-auto w-full flex-col justify-center p-7">
       {src && (
-        <img
+        <Image
           src={src}
           alt={news.title}
-          className="w-[100%] lg:h-[500px] object-cover rounded rounded-md mb-10"
+          width={1200}
+          height={500}
+          className="mb-10 h-auto max-h-[500px] w-full rounded-md object-cover"
         />
       )}
 
-      <h1 className="text-3xl font-bold mb-4">
+      <h1 className="mb-4 text-3xl font-bold">
         {news.title}
       </h1>
 
-      <small className="text-gray-400 block mb-4">
-        {new Date(news.date).toLocaleDateString("pt-BR")}
+      <small className="mb-4 block text-gray-400">
+        {formatDate(news.date)}
       </small>
 
-      <p className="text-gray-700 whitespace-pre-line">
+      <p className="whitespace-pre-line text-gray-700">
         {news.description}
       </p>
 
-      <div className="flex flex-col justify-center items-end pt-7">
-        <Link href={"/"} className=" w-auto rounded-lg text-white text-center p-3 bg-[#054EA1]">
+      <div className="flex items-center justify-end pt-7">
+        <Link
+          href="/"
+          className="w-auto rounded-lg bg-[#054EA1] p-3 text-center text-white"
+        >
           Voltar
         </Link>
       </div>
