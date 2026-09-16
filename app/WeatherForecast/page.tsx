@@ -66,7 +66,6 @@ export default function WeatherForecast() {
       const g = await geoRes.json()
       city = g.city || g.locality || g.principalSubdivision || city
     }
-
     setWeather({
       temperature: Math.round(w.current.temperature_2m),
       apparentTemperature: Math.round(w.current.apparent_temperature),
