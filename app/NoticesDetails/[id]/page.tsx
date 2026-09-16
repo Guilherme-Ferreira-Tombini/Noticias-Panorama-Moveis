@@ -23,17 +23,17 @@ export default async function NewsDetails({ params }: PageProps) {
     notFound()
   }
 
-  const src = news.image
+  const src = news.image;
 
   return (
-    <div className="flex h-auto w-full flex-col justify-center p-7">
+    <div className="flex h-auto w-full flex-col justify-center p-10">
       {src && (
         <Image
           src={src}
           alt={news.title}
           width={1200}
           height={500}
-          className="mb-10 h-auto max-h-[500px] w-full rounded-md object-cover"
+          className="mb-10 h-56 w-full rounded-md object-cover sm:h-50 md:h-80 lg:h-96"
         />
       )}
 
@@ -49,10 +49,17 @@ export default async function NewsDetails({ params }: PageProps) {
         {news.description}
       </p>
 
-      <div className="flex items-center justify-end pt-7">
+      <div className="flex items-center justify-end gap-2 pt-7">
+        <Link
+          href={`/CreateAndUpdateNews?id=${news.id}`}
+          className="w-auto rounded-lg bg-yellow-500 hover:bg-yellow-600 p-3 text-center text-black"
+        >
+          Editar
+        </Link>
+
         <Link
           href="/"
-          className="w-auto rounded-lg bg-[#054EA1] p-3 text-center text-white"
+          className="w-auto rounded-lg bg-[#054EA1] hover:bg-blue-700 p-3 text-center text-white"
         >
           Voltar
         </Link>
