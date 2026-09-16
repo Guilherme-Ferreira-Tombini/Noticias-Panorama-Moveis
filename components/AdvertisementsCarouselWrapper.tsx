@@ -1,6 +1,5 @@
 import prisma from "@/prisma/db"
 import Advertisements from "./Advertisements"
-import { toDataUrl } from "@/app/lib/image"
 
 export default async function AdvertisementsCarouselWrapper() {
   const now = new Date()
@@ -18,7 +17,7 @@ export default async function AdvertisementsCarouselWrapper() {
   const advertisements = rows.map((ad) => ({
     id: ad.id,
     title: ad.title,
-    imageSrc: toDataUrl(ad.image, ad.imageMime) ?? "",
+    imageSrc: ad.image,
     link: ad.link,
     description: ad.description,
     startDate: ad.startDate,

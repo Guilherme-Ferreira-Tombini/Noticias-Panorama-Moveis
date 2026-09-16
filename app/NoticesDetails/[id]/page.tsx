@@ -3,7 +3,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 
-import { toDataUrl } from "@/app/lib/image"
 import { formatDate } from "@/app/lib/date"
 
 interface PageProps {
@@ -24,7 +23,7 @@ export default async function NewsDetails({ params }: PageProps) {
     notFound()
   }
 
-  const src = toDataUrl(news.image, news.imageMime)
+  const src = news.image
 
   return (
     <div className="flex h-auto w-full flex-col justify-center p-7">

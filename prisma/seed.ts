@@ -1,8 +1,6 @@
 import 'dotenv/config'
 import { PrismaClient } from '@prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
-import fs from 'node:fs/promises'
-import path from 'node:path'
 
 if (!process.env.DATABASE_URL) {
   console.error('DATABASE_URL não encontrada no .env')
@@ -15,22 +13,6 @@ const adapter = new PrismaPg({
 
 const prisma = new PrismaClient({ adapter })
 
-async function loadImage(relativePath: string) {
-  const cleanPath = relativePath.replace(/^\//, '')
-  const fullPath = path.join(process.cwd(), 'public', cleanPath)
-  const buffer = await fs.readFile(fullPath)
-
-  const ext = path.extname(cleanPath).toLowerCase()
-  const mime =
-    ext === '.png' ? 'image/png' :
-    ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg' :
-    ext === '.webp' ? 'image/webp' :
-    ext === '.gif' ? 'image/gif' :
-    'application/octet-stream'
-
-  return { buffer, mime }
-}
-
 async function main() {
   // limpeza para dados base
   const deletedAds = await prisma.advertisements.deleteMany()
@@ -42,7 +24,7 @@ async function main() {
     {
       title: 'Super Oferta de Verão',
       image: '/propa1.png',
-      link: 'https://exemplo.com/oferta-verao',
+      link: 'https://g1.globo.com/',
       description: 'Aproveite descontos de até 50% em toda a loja!',
       isActive: true,
       startDate: new Date('2025-01-01'),
@@ -51,7 +33,7 @@ async function main() {
     {
       title: 'Desconto Especial para Novos Clientes',
       image: '/propa2.png',
-      link: 'https://exemplo.com/novo-cliente',
+      link: 'https://novanews.com.br/',
       description: '10% de desconto na primeira compra. Cadastre-se já!',
       isActive: true,
       startDate: new Date('2025-02-01'),
@@ -60,7 +42,7 @@ async function main() {
     {
       title: 'Lançamento Exclusivo',
       image: '/propa1.png',
-      link: 'https://exemplo.com/lancamento',
+      link: 'https://jornaldanova.com.br/',
       description: 'Novo produto disponível com frete grátis para todo o Brasil.',
       isActive: true,
       startDate: new Date('2025-04-15'),
@@ -69,7 +51,7 @@ async function main() {
     {
       title: 'Black Friday Antecipada',
       image: '/propa2.png',
-      link: 'https://exemplo.com/black-friday',
+      link: 'https://google.com/',
       description: 'Ofertas imperdíveis antes da hora. Corre que é por tempo limitado!',
       isActive: false,
       startDate: new Date('2025-11-01'),
@@ -96,13 +78,10 @@ async function main() {
   ]
 
   for (const ad of ads) {
-    const { buffer, mime } = await loadImage(ad.image)
-
     await prisma.advertisements.create({
       data: {
         title: ad.title,
-        image: buffer,
-        imageMime: mime,
+        image: ad.image,
         link: ad.link,
         description: ad.description,
         isActive: ad.isActive,
@@ -162,7 +141,7 @@ async function main() {
     },
     {
       title: 'Novo recorde de usuários',
-      image: '/noticia2.png',
+      image: '/noticia1.png',
       summary:
         'Alcançamos a marca de 1 milhão de usuários ativos! Agradecemos a confiança de todos.',
       description: `É com enorme satisfação que celebramos a marca de 1 milhão de usuários ativos na nossa plataforma. Esse número representa muito mais do que uma métrica: simboliza a confiança de pessoas e empresas que escolheram construir junto com a gente.
@@ -178,7 +157,7 @@ async function main() {
     },
     {
       title: 'Workshop gratuito de tecnologia',
-      image: '/noticia2.png',
+      image: '/noticia1.png',
       summary:
         'Participe do nosso workshop gratuito sobre as tendências tecnológicas para 2025.',
       description: `Estão abertas as inscrições para o nosso workshop gratuito sobre as principais tendências tecnológicas de 2025. O evento é voltado para profissionais, estudantes e curiosos que querem entender, na prática, o que está moldando o futuro do setor.
@@ -194,7 +173,7 @@ async function main() {
     },
     {
       title: 'Atualização do aplicativo móvel',
-      image: '/noticia1.png',
+      image: '/noticia2.png',
       summary:
         'Nova versão do app já está disponível com melhorias de desempenho e correções de bugs.',
       description: `A nova versão do nosso aplicativo móvel já está disponível para download nas lojas oficiais. Esta atualização foi construída a partir do feedback de milhares de usuários e traz melhorias que impactam diretamente a experiência no dia a dia.
@@ -224,7 +203,7 @@ async function main() {
     },
     {
       title: 'Entrevista com o CEO',
-      image: '/noticia1.png',
+      image: '/noticia2.png',
       summary:
         'Nosso CEO concedeu uma entrevista exclusiva sobre os planos da empresa para o próximo ano.',
       description: `Em uma conversa exclusiva, nosso CEO compartilhou sua visão sobre o momento atual da empresa e os planos para o próximo ano. A entrevista abordou desde decisões estratégicas até aspectos mais pessoais da liderança.
@@ -240,7 +219,7 @@ async function main() {
     },
     {
       title: 'Pesquisa de satisfação 2025',
-      image: '/noticia2.png',
+      image: '/noticia1.png',
       summary:
         'Sua opinião é muito importante! Responda à nossa pesquisa de satisfação e ajude-nos a melhorar.',
       description: `Está no ar a nossa pesquisa de satisfação de 2025. Este é o momento em que colocamos o microfone nas mãos de quem realmente importa: você, que usa nossos produtos e serviços todos os dias.
@@ -257,15 +236,12 @@ async function main() {
   ]
 
   for (const n of noticies) {
-    const { buffer, mime } = await loadImage(n.image)
-
     await prisma.news.create({
       data: {
         title: n.title,
         summary: n.summary,
         description: n.description,
-        image: buffer,
-        imageMime: mime,
+        image: n.image,
         date: n.date,
       },
     })

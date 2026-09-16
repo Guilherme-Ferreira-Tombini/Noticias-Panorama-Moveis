@@ -3,6 +3,7 @@
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Pagination, Autoplay } from "swiper/modules"
 import Link from "next/link"
+import Image from "next/image"
 
 import "swiper/css"
 import "swiper/css/pagination"
@@ -61,10 +62,12 @@ function AdCard({ ad }: { ad: Advertisement }) {
     <div className="overflow-hidden bg-white hover:shadow-xl transition-shadow duration-300">
       <div className="relative w-full h-70">
         {ad.imageSrc && (
-          <img
+          <Image
             src={ad.imageSrc}
             alt={ad.title}
-            className="w-full h-full object-cover"
+            fill
+            className="rounded-md"
+            sizes="(max-width: 768px) 375px, (max-width: 1200px) 512px, 475px"
           />
         )}
         <div className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
@@ -72,7 +75,7 @@ function AdCard({ ad }: { ad: Advertisement }) {
         </div>
       </div>
 
-      <div className="p-4">
+      <div className="p-4 hidden md:block">
         <h3 className="text-lg font-semibold mb-2 line-clamp-2">{ad.title}</h3>
 
         {ad.description && (

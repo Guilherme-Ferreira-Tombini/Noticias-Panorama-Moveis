@@ -1,4 +1,3 @@
-import { toDataUrl } from "@/app/lib/image"
 import { formatDate } from "@/app/lib/date"
 import prisma from "@/prisma/db"
 import Link from "next/link"
@@ -15,7 +14,6 @@ export default async function NewsPage() {
     title: item.title,
     summary: item.summary,
     image: item.image,
-    imageMime: item.imageMime,
     dateLabel: formatDate(item.date),
   }))
 
@@ -23,7 +21,7 @@ export default async function NewsPage() {
     <div className="container mx-auto p-10">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {items.map((item) => {
-          const src = toDataUrl(item.image, item.imageMime)
+          const src = item.image
 
           return (
             <div

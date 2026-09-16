@@ -9,8 +9,7 @@ datasource db {
 model News {
   id          Int      @id @default(autoincrement())
   title       String
-  image       Bytes?
-  imageMime   String?
+  image       String
   summary     String
   description String
   date        DateTime @default(now())
@@ -19,8 +18,7 @@ model News {
 model Advertisements {
   id          String   @id @default(uuid())
   title       String
-  image       Bytes?
-  imageMime   String?
+  image  String
   link        String?
   description String?
   isActive    Boolean  @default(true)
