@@ -16,6 +16,13 @@ const initialForm = {
 
 type FormElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
 
+function isStoredImage(image: string) {
+  return (
+    image.startsWith("/uploads/") ||
+    image.includes(".public.blob.vercel-storage.com")
+  )
+}
+
 function CreateAndUpdateNewsContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -78,7 +85,7 @@ function CreateAndUpdateNewsContent() {
     const url = form.image.trim()
 
     if (!url) return
-    if (url.startsWith("/uploads/")) return
+    if (isStoredImage(url)) return
     if (lastDownloaded.current === url) return
 
     let isValid = false
@@ -125,9 +132,8 @@ function CreateAndUpdateNewsContent() {
       return
     }
 
-    if (form.image && !form.image.startsWith("/uploads/")) {
-      setError("A imagem ainda não foi baixada. Aguarde um instante.")
-      return
+    if (form.image && !isStoredImage(form.image)) {
+      return setError("A imagem ainda não foi baixada. Aguarde um instante.")
     }
 
     startTransition(async () => {
@@ -250,7 +256,7 @@ function CreateAndUpdateNewsContent() {
               <input
                 type="url"
                 name="image"
-                value={form.image.startsWith("/uploads/") ? "" : form.image}
+                value={isStoredImage(form.image) ? "" : form.image}
                 onChange={handleChange}
                 placeholder="https://exemplo.com/imagem.jpg"
                 className="w-full border border-gray-300 rounded-md px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -261,13 +267,13 @@ function CreateAndUpdateNewsContent() {
                 {downloading && (
                   <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
                 )}
-                {!downloading && form.image.startsWith("/uploads/") && (
+                {!downloading && isStoredImage(form.image) && (
                   <span className="text-green-600 text-sm">✓</span>
                 )}
               </div>
             </div>
 
-            {form.image.startsWith("/uploads/") && (
+            {isStoredImage(form.image) && (
               <div className="relative w-full h-48 mt-3 rounded-md overflow-hidden border">
                 <Image
                   src={form.image}
@@ -285,9 +291,9 @@ function CreateAndUpdateNewsContent() {
               </p>
             )}
 
-            {!downloading && form.image.startsWith("/uploads/") && (
+            {!downloading && isStoredImage(form.image) && (
               <p className="mt-2 text-xs text-green-600">
-                Imagem salva localmente em <code>{form.image}</code>
+                Imagem salva em <code>{form.image}</code>
               </p>
             )}
           </div>
