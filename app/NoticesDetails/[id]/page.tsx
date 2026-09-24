@@ -41,11 +41,11 @@ export default async function NewsDetails({ params }: PageProps) {
         {news.title}
       </h1>
 
-      <small className="mb-4 block text-gray-400">
+      <small className="mb-4 block text-gray-400 text-[15px]">
         {formatDate(news.date)}
       </small>
 
-      <p className="whitespace-pre-line text-gray-700">
+      <p className="whitespace-pre-line text-gray-700 text-justify">
         {news.description}
       </p>
 

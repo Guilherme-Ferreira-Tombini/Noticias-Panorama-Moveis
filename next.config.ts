@@ -8,6 +8,7 @@ const NextConfig = {
         hostname: "*.public.blob.vercel-storage.com",
       },
     ],
+    dangerouslyAllowLocalIP: true
   },
 }
 
