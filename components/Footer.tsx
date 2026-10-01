@@ -5,7 +5,7 @@ export default function Footer() {
                 ↑
             </div>
             <div className="w-[90%] text-white flex flex-col items-center text-center">
-                Guilherme Ferreira Tombini - Programação para Dispositivos Móveis II
+                Guilherme Ferreira Tombini - Programação para Dispositivos Móveis II - 2026
             </div>
         </div>
     )
