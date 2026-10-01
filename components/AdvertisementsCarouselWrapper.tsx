@@ -24,5 +24,9 @@ export default async function AdvertisementsCarouselWrapper() {
     endDate: ad.endDate,
   }))
 
-  return <Advertisements advertisements={advertisements} />
+  return(
+    <div className="w-full flex flex-col items-center justify-center ">
+      <Advertisements advertisements={advertisements} />
+    </div>
+  )
 }

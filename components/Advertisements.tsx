@@ -59,8 +59,8 @@ export default function Advertisements({ advertisements = [] }: AdvertisementsPr
 
 function AdCard({ ad }: { ad: Advertisement }) {
   const card = (
-    <div className="overflow-hidden bg-white hover:shadow-xl transition-shadow duration-300">
-      <div className="relative w-full h-70">
+    <div className="overflow-hidden bg-white hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
+      <div className="relative w-[95%] h-70">
         {ad.imageSrc && (
           <Image
             src={ad.imageSrc}
@@ -75,7 +75,7 @@ function AdCard({ ad }: { ad: Advertisement }) {
         </div>
       </div>
 
-      <div className="p-4 hidden md:block">
+      <div className="p-4 hidden md:block w-[95%] flex flex-col items-center">
         <h3 className="text-lg font-semibold mb-2 line-clamp-2">{ad.title}</h3>
 
         {ad.description && (
