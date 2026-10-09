@@ -14,66 +14,72 @@ const adapter = new PrismaPg({
 const prisma = new PrismaClient({ adapter })
 
 async function main() {
-  // limpeza para dados base
   const deletedAds = await prisma.advertisements.deleteMany()
   const deletedNews = await prisma.news.deleteMany()
+
   console.log(`${deletedAds.count} anúncios removidos`)
   console.log(`${deletedNews.count} notícias removidas`)
 
   const ads = [
     {
-      title: 'Super Oferta de Verão',
+      title: 'Semana de Ofertas: economize até 50%',
       image: '/propa1.png',
       link: 'https://g1.globo.com/',
-      description: 'Aproveite descontos de até 50% em toda a loja!',
+      description:
+        'Renove seus favoritos com condições especiais por tempo limitado. Aproveite descontos de até 50% em produtos selecionados enquanto durar a campanha.',
       isActive: true,
-      startDate: new Date('2025-01-01'),
-      endDate: new Date('2026-10-31'),
+      startDate: new Date('2026-10-01T00:00:00'),
+      endDate: new Date('2026-10-31T23:59:59'),
     },
     {
-      title: 'Desconto Especial para Novos Clientes',
+      title: 'Sua primeira compra com 10% de desconto',
       image: '/propa2.png',
       link: 'https://novanews.com.br/',
-      description: '10% de desconto na primeira compra. Cadastre-se já!',
+      description:
+        'Está chegando agora? Faça seu primeiro pedido e aproveite 10% de desconto. Conheça nossas ofertas e descubra uma nova forma de comprar.',
       isActive: true,
-      startDate: new Date('2025-02-01'),
-      endDate: new Date('2026-10-31'),
+      startDate: new Date('2026-09-01T00:00:00'),
+      endDate: new Date('2026-12-31T23:59:59'),
     },
     {
-      title: 'Lançamento Exclusivo',
+      title: 'Novidades que chegaram para facilitar seu dia',
       image: '/propa1.png',
       link: 'https://jornaldanova.com.br/',
-      description: 'Novo produto disponível com frete grátis para todo o Brasil.',
+      description:
+        'Conheça nossa seleção de lançamentos e encontre opções pensadas para tornar sua rotina mais prática. Consulte as condições e a disponibilidade.',
       isActive: true,
-      startDate: new Date('2025-04-15'),
-      endDate: new Date('2026-10-31'),
+      startDate: new Date('2026-10-01T00:00:00'),
+      endDate: new Date('2026-11-30T23:59:59'),
     },
     {
-      title: 'Black Friday Antecipada',
+      title: 'Esquenta Black Friday: ofertas selecionadas',
       image: '/propa2.png',
       link: 'https://google.com/',
-      description: 'Ofertas imperdíveis antes da hora. Corre que é por tempo limitado!',
+      description:
+        'Prepare sua lista de desejos e acompanhe as ofertas especiais da temporada. Confira os produtos participantes e as condições de cada promoção.',
       isActive: false,
-      startDate: new Date('2025-11-01'),
-      endDate: new Date('2026-10-31'),
+      startDate: new Date('2026-11-01T00:00:00'),
+      endDate: new Date('2026-11-30T23:59:59'),
     },
     {
-      title: 'Promoção Relâmpago',
+      title: 'Oferta por tempo limitado',
       image: '/propa1.png',
       link: null,
-      description: 'Só hoje: 30% de desconto em produtos selecionados.',
-      isActive: true,
-      startDate: new Date('2025-05-10'),
-      endDate: new Date('2025-05-11'),
+      description:
+        'Uma oportunidade para economizar em produtos selecionados. Consulte as condições da campanha e aproveite enquanto a oferta estiver disponível.',
+      isActive: false,
+      startDate: new Date('2026-10-01T00:00:00'),
+      endDate: new Date('2026-10-02T23:59:59'),
     },
     {
-      title: 'Assinatura Premium com Desconto',
+      title: 'Plano anual: mais vantagens para você',
       image: '/propa2.png',
       link: 'https://exemplo.com/premium',
-      description: 'Assine o plano anual e ganhe 3 meses grátis.',
+      description:
+        'Escolha o plano anual e aproveite uma condição especial de assinatura, com três meses adicionais conforme as regras da oferta.',
       isActive: true,
-      startDate: new Date('2025-03-01'),
-      endDate: new Date('2026-10-31'),
+      startDate: new Date('2026-09-15T00:00:00'),
+      endDate: new Date('2026-12-31T23:59:59'),
     },
   ]
 
@@ -89,149 +95,196 @@ async function main() {
         endDate: ad.endDate,
       },
     })
+
     console.log(`Anúncio criado: ${ad.title}`)
   }
 
   const noticies = [
     {
-      title: 'Nova funcionalidade lançada!',
+      title:
+        'Plataforma recebe atualização e promete uma experiência mais simples para os usuários',
       image: '/noticia1.png',
       summary:
-        'Confira as novas funcionalidades que adicionamos ao sistema para melhorar sua experiência.',
-      description: `É com grande entusiasmo que anunciamos a chegada de uma nova rodada de funcionalidades ao nosso sistema. Após meses de pesquisa com usuários, testes internos e ajustes finos, finalmente podemos compartilhar o que preparamos.
+        'Nova versão reorganiza o painel principal, melhora a busca e facilita o acesso às informações mais utilizadas. A implantação será gradual.',
+      description: `A experiência de quem utiliza uma plataforma digital diariamente costuma ser definida por pequenos detalhes. Encontrar uma informação sem precisar abrir várias telas, receber um aviso no momento certo ou concluir uma tarefa sem repetir etapas são situações que fazem diferença na rotina. Foi a partir desse tipo de observação que a equipe responsável pelo sistema iniciou um projeto de atualização que agora começa a chegar aos usuários.
 
-      Entre as principais novidades estão um painel de controle redesenhado, com navegação mais intuitiva e atalhos personalizáveis; notificações inteligentes que filtram o que realmente importa para cada perfil de uso; e um sistema de busca reformulado, capaz de encontrar resultados com muito mais precisão, mesmo quando o termo digitado está incompleto.
+O trabalho teve início depois que o suporte passou a registrar dúvidas recorrentes sobre navegação e acesso a determinadas funções. Embora os recursos já estivessem disponíveis, parte dos usuários relatava dificuldade para identificar onde estavam algumas opções. Em outros casos, tarefas simples exigiam mais etapas do que o necessário. Os relatos foram reunidos e utilizados como ponto de partida para uma revisão mais ampla da interface.
 
-      Também implementamos melhorias de acessibilidade, como navegação por teclado em todos os fluxos críticos e ajustes de contraste que seguem as recomendações WCAG. Nosso objetivo é que ninguém fique de fora por causa de barreiras técnicas.
+Durante o desenvolvimento, a equipe analisou os caminhos mais utilizados, comparou diferentes propostas de organização e realizou testes com grupos de usuários. A prioridade não era apenas modificar a aparência das telas, mas tornar as ações cotidianas mais previsíveis. A nova versão reorganiza o painel inicial, destaca ferramentas utilizadas com frequência e apresenta atalhos que ajudam a reduzir o tempo gasto na navegação.
 
-      Essas mudanças chegam a todos os usuários de forma gradual ao longo das próximas duas semanas. Caso você não veja as novidades imediatamente, não se preocupe: a atualização será liberada automaticamente.
+A busca também passou por mudanças. Agora, o sistema foi preparado para lidar melhor com termos incompletos e apresentar resultados de maneira mais organizada. A proposta é permitir que o usuário encontre conteúdos relevantes sem precisar conhecer exatamente o nome de cada seção. A atualização inclui ainda ajustes nas notificações, que passam a oferecer informações mais claras sobre os acontecimentos que exigem atenção.
 
-      Como sempre, contamos com o seu feedback para continuar evoluindo. Se tiver sugestões, críticas ou ideias, fale com a gente pelos canais oficiais de atendimento.`,
-      date: new Date('2025-01-10'),
+Outro ponto considerado durante o projeto foi a acessibilidade. A equipe revisou elementos de contraste, identificou oportunidades para melhorar a navegação pelo teclado e reorganizou componentes que poderiam dificultar o uso por pessoas com diferentes necessidades. Essas alterações fazem parte de um esforço contínuo para tornar o ambiente digital mais compreensível e acessível.
+
+Em uma situação fictícia utilizada durante os testes, uma pequena equipe administrativa relatou que precisava alternar entre várias áreas para acompanhar tarefas pendentes. Após experimentar o novo painel, os participantes conseguiram identificar com mais facilidade as atividades prioritárias. O exemplo ilustra o objetivo da atualização: diminuir obstáculos que, isoladamente, parecem pequenos, mas que podem consumir tempo ao longo de uma jornada de trabalho.
+
+A implantação será realizada de forma gradual para permitir o acompanhamento do desempenho e a identificação de eventuais problemas. Durante esse período, a equipe pretende observar o comportamento dos recursos, analisar os chamados recebidos e corrigir inconsistências antes de ampliar a distribuição para todos os usuários.
+
+A recomendação é que os usuários acompanhem os comunicados oficiais e consultem a área de ajuda caso percebam diferenças na interface. Como acontece em mudanças desse tipo, algumas opções podem aparecer em locais diferentes daqueles aos quais as pessoas estavam acostumadas.
+
+A atualização representa uma etapa de um processo que não termina com o lançamento. A proposta é manter um ciclo de melhorias baseado em observações práticas, testes e sugestões. A equipe também pretende reunir novos comentários nas próximas semanas para identificar quais mudanças tiveram maior impacto e quais pontos ainda precisam de atenção.
+
+Mais do que apresentar uma interface renovada, o projeto procura responder a uma necessidade comum em serviços digitais: fazer com que a tecnologia seja menos complicada e permita que as pessoas se concentrem no que realmente precisam realizar.`,
+      date: new Date('2026-10-08T09:00:00'),
     },
     {
-      title: 'Atualização de segurança importante',
+      title:
+        'Pequenas empresas ampliam presença digital e apostam em atendimento mais próximo',
       image: '/noticia2.png',
       summary:
-        'Lançamos uma atualização de segurança crítica. Recomendamos que todos os usuários atualizem o sistema.',
-      description: `Identificamos recentemente uma vulnerabilidade que, em condições específicas, poderia permitir acesso não autorizado a determinadas informações do sistema. A falha já foi corrigida, mas é fundamental que todos os usuários apliquem a atualização o quanto antes.
+        'Comerciantes de diferentes segmentos investem em canais digitais, organização de pedidos e relacionamento com clientes para acompanhar novos hábitos de consumo.',
+      description: `A rotina de pequenos comerciantes mudou à medida que os clientes passaram a pesquisar produtos, comparar preços e entrar em contato com as empresas pela internet. Para muitos negócios, estar presente nos canais digitais deixou de ser apenas uma alternativa de divulgação e passou a fazer parte do atendimento cotidiano.
 
-      A correção está disponível a partir de hoje em todas as plataformas suportadas — web, desktop e aplicativo móvel. O processo de atualização é simples: na maioria dos casos, basta fechar e reabrir o aplicativo para que a nova versão seja baixada automaticamente. Usuários da versão desktop devem verificar manualmente em "Configurações > Atualizações".
+Em uma cidade fictícia do interior paulista, a história de uma pequena loja de utilidades ajuda a ilustrar esse movimento. Durante anos, as vendas da loja dependeram principalmente das pessoas que passavam em frente ao estabelecimento e das recomendações feitas por clientes antigos. O contato era próximo, mas as informações sobre produtos, disponibilidade e horários ficavam concentradas no atendimento presencial.
 
-      Reforçamos algumas boas práticas de segurança que ajudam a proteger sua conta: use senhas longas e únicas para cada serviço; ative a autenticação em dois fatores sempre que possível; desconfie de mensagens que pedem dados pessoais ou links suspeitos; e mantenha o sistema operacional e o navegador sempre atualizados.
+A mudança começou quando a responsável pela loja percebeu que parte dos consumidores enviava mensagens antes mesmo de sair de casa. As perguntas eram simples: determinado produto estava disponível? A loja fechava para o almoço? Era possível reservar uma mercadoria para retirar mais tarde? Responder individualmente a cada solicitação passou a consumir uma parcela considerável do expediente.
 
-      Nossa equipe de segurança continua monitorando o ambiente de forma contínua e trabalhando em melhorias preventivas. Caso você note qualquer comportamento estranho na sua conta, entre em contato imediatamente com nosso suporte.
+A primeira medida foi organizar as informações mais procuradas e publicá-las em um canal digital. Em seguida, a equipe passou a registrar os pedidos recebidos, confirmar a disponibilidade dos produtos e estabelecer uma rotina para responder às mensagens. O processo não exigiu uma transformação completa do negócio, mas trouxe mais clareza para atividades que antes eram realizadas de maneira improvisada.
 
-      Agradecemos a compreensão e o compromisso de todos com a segurança da plataforma.`,
-      date: new Date('2025-02-05'),
+A experiência fictícia também evidencia um desafio comum entre empresas de menor porte: adotar ferramentas digitais sem perder a proximidade que caracteriza o atendimento local. Automatizar respostas pode ajudar a resolver dúvidas frequentes, mas questões específicas continuam exigindo atenção individual. O equilíbrio entre agilidade e relacionamento tornou-se uma preocupação importante para quem atende públicos com necessidades diferentes.
+
+Outro aprendizado surgiu na organização do estoque. Quando as informações eram atualizadas apenas no estabelecimento, nem sempre a equipe conseguia confirmar rapidamente se um item anunciado ainda estava disponível. Com um registro mais consistente, os funcionários passaram a verificar as quantidades antes de confirmar os pedidos, reduzindo a possibilidade de oferecer produtos indisponíveis.
+
+A presença digital, por si só, não garante o aumento das vendas. A qualidade das informações, o cumprimento dos prazos e a clareza das condições comerciais continuam sendo fatores decisivos. Uma página movimentada pode atrair visitantes, mas a confiança depende da experiência que o consumidor encontra depois do primeiro contato.
+
+O custo também precisa ser considerado. Pequenos negócios nem sempre dispõem de orçamento para contratar plataformas sofisticadas ou manter uma equipe dedicada à comunicação. Por isso, a recomendação é começar com ferramentas compatíveis com a estrutura existente, estabelecer prioridades e avaliar os resultados antes de ampliar os investimentos.
+
+Na prática, algumas ações podem fazer diferença: manter os horários atualizados, responder às dúvidas dentro de um prazo razoável, apresentar fotografias fiéis dos produtos e explicar claramente as condições de pagamento, entrega e troca. Essas medidas não substituem um planejamento comercial, mas ajudam a reduzir incertezas e tornam a comunicação mais transparente.
+
+A mudança de hábitos dos consumidores também exige atenção à proteção de dados. Informações fornecidas durante um pedido ou atendimento devem ser utilizadas com responsabilidade, e as empresas precisam evitar solicitar dados que não sejam necessários para concluir a operação. A confiança construída no contato diário pode ser prejudicada quando o cliente não entende como suas informações são tratadas.
+
+Apesar das dificuldades, a digitalização oferece oportunidades para empresas que desejam alcançar novos públicos e organizar melhor a própria rotina. A experiência descrita nesta reportagem é ilustrativa, mas representa situações que podem ser observadas em diferentes segmentos do comércio.
+
+O próximo passo para negócios que já iniciaram essa transformação é acompanhar os resultados com critérios simples: quantidade de solicitações atendidas, tempo médio de resposta, pedidos concluídos e dúvidas que continuam aparecendo. Com essas informações, fica mais fácil identificar o que funciona e evitar investimentos que não correspondam às necessidades reais da empresa.
+
+No fim, a presença digital mais eficiente não é necessariamente a que utiliza o maior número de ferramentas. É aquela que facilita o contato, oferece informações confiáveis e ajuda o negócio a manter um relacionamento consistente com seus clientes.`,
+      date: new Date('2026-10-06T10:30:00'),
     },
     {
-      title: 'Parceria estratégica anunciada',
+      title:
+        'Segurança digital entra na rotina das empresas após aumento das tentativas de fraude',
       image: '/noticia1.png',
       summary:
-        'Fechamos uma nova parceria que trará benefícios exclusivos para nossos clientes.',
-      description: `Temos o prazer de anunciar uma parceria estratégica que marca um novo capítulo na nossa trajetória. Unimos forças com uma das empresas mais respeitadas do setor para oferecer aos nossos clientes soluções mais completas, integradas e competitivas.
+        'Organizações reforçam orientações internas, revisão de acessos e procedimentos de recuperação de contas para reduzir riscos no ambiente digital.',
+      description: `Uma mensagem que parece vir de um fornecedor conhecido, um pedido inesperado para redefinir uma senha ou um aviso urgente sobre uma conta bloqueada podem parecer situações comuns em um dia de trabalho. Entretanto, quando essas solicitações são utilizadas para induzir alguém a fornecer informações confidenciais, pequenos descuidos podem abrir caminho para fraudes.
 
-      A parceria abrange três frentes principais. A primeira é a integração tecnológica: nossos sistemas passarão a se comunicar de forma nativa, eliminando retrabalho e permitindo fluxos mais fluidos entre as plataformas. A segunda é comercial: clientes de ambas as empresas terão acesso a condições especiais, pacotes combinados e suporte prioritário. A terceira é de inovação: vamos desenvolver, em conjunto, novos produtos e funcionalidades ao longo dos próximos meses.
+A segurança digital passou a fazer parte das preocupações de empresas de diferentes tamanhos. O uso de ferramentas em nuvem, sistemas de atendimento remoto e plataformas integradas facilitou a execução de tarefas, mas também tornou necessário revisar a forma como os acessos são concedidos e monitorados.
 
-      Os primeiros frutos dessa colaboração já devem ser percebidos pelos usuários nas próximas semanas, começando por uma integração de dados que simplifica o dia a dia de quem usa as duas soluções.
+Em um cenário fictício utilizado para ilustrar esse tipo de ocorrência, uma empresa de serviços recebeu uma mensagem que imitava a comunicação de um parceiro comercial. O texto solicitava a confirmação de dados de acesso e indicava um prazo curto para evitar a interrupção de um serviço. A urgência da mensagem chamou a atenção de um funcionário, que decidiu confirmar a solicitação por um canal já conhecido antes de realizar qualquer ação.
 
-      Estamos animados com o que vem por aí e acreditamos que essa união reforça nosso compromisso de entregar valor real a quem confia no nosso trabalho. Fique atento aos nossos canais para acompanhar os próximos passos.`,
-      date: new Date('2025-03-12'),
+A verificação revelou inconsistências no endereço do remetente e no destino do link apresentado. O episódio levou a empresa a revisar as orientações internas e a preparar exemplos de mensagens suspeitas para discutir com a equipe. A situação não descreve uma ocorrência real, mas demonstra como procedimentos simples podem ajudar a interromper uma tentativa de fraude.
+
+Uma das medidas mais importantes é a autenticação em dois fatores, que acrescenta uma etapa de verificação ao processo de entrada em uma conta. Mesmo quando uma senha é descoberta ou reutilizada indevidamente, essa camada adicional pode dificultar o acesso não autorizado. A proteção, porém, precisa estar acompanhada de outras práticas, pois nenhum recurso isolado elimina todos os riscos.
+
+A escolha de senhas também merece atenção. Utilizar a mesma combinação em diferentes serviços amplia as consequências de um vazamento, já que criminosos podem tentar reaproveitar credenciais expostas em outros ambientes. Senhas longas e exclusivas, armazenadas em um gerenciador confiável quando apropriado, ajudam a reduzir esse problema.
+
+Outro ponto essencial é a gestão de permissões. Nem todo funcionário precisa ter acesso a todas as informações ou ferramentas da organização. Definir permissões de acordo com as responsabilidades de cada pessoa reduz a exposição de dados e facilita a investigação de atividades inesperadas. Quando alguém muda de função ou deixa a empresa, os acessos correspondentes precisam ser revisados.
+
+As atualizações de software também fazem parte da prevenção. Sistemas desatualizados podem conter falhas conhecidas para as quais já existem correções. Manter aplicativos, navegadores e sistemas operacionais atualizados reduz a exposição a vulnerabilidades corrigidas pelos fornecedores. Nas organizações, esse processo deve ser acompanhado para evitar que equipamentos importantes permaneçam sem manutenção.
+
+A preparação para incidentes é outro aspecto frequentemente negligenciado. Mesmo com medidas preventivas, uma empresa precisa saber a quem comunicar uma suspeita, como suspender um acesso comprometido e onde encontrar cópias de segurança. Um procedimento claro pode reduzir a confusão nos primeiros minutos de um problema e facilitar a recuperação das operações.
+
+A comunicação interna deve evitar a culpabilização automática de quem relata uma mensagem suspeita. Se os funcionários temerem punições por fazer perguntas ou informar um possível erro, poderão esconder situações importantes. Criar um ambiente no qual dúvidas sejam tratadas com seriedade contribui para identificar riscos mais cedo.
+
+Também é necessário ter cuidado com informações recebidas por mensagens, ligações e redes sociais. Pedidos de pagamento inesperados, mudanças repentinas em dados bancários e solicitações de códigos de autenticação devem ser confirmados por um canal independente. A aparência profissional de uma mensagem não é garantia de legitimidade.
+
+Para usuários comuns, as recomendações são semelhantes: desconfiar de links inesperados, conferir o endereço dos sites, utilizar senhas diferentes, ativar recursos adicionais de proteção e manter os dispositivos atualizados. Caso uma credencial seja inserida em uma página suspeita, a orientação é trocar a senha por um canal oficial e verificar outras contas que possam utilizar a mesma combinação.
+
+A segurança digital não depende exclusivamente de ferramentas caras ou de profissionais especializados. Processos consistentes, treinamento periódico e atenção aos detalhes podem reduzir parte significativa dos riscos cotidianos. Ainda assim, cada organização deve adaptar suas medidas ao tipo de informação que mantém e às consequências de uma eventual interrupção.
+
+À medida que as operações se tornam mais conectadas, proteger contas e informações deixa de ser uma tarefa restrita ao departamento técnico. É uma responsabilidade compartilhada, construída por decisões diárias e por procedimentos que precisam ser revisados continuamente.`,
+      date: new Date('2026-10-03T08:45:00'),
     },
     {
-      title: 'Novo recorde de usuários',
-      image: '/noticia1.png',
-      summary:
-        'Alcançamos a marca de 1 milhão de usuários ativos! Agradecemos a confiança de todos.',
-      description: `É com enorme satisfação que celebramos a marca de 1 milhão de usuários ativos na nossa plataforma. Esse número representa muito mais do que uma métrica: simboliza a confiança de pessoas e empresas que escolheram construir junto com a gente.
-
-      Quando começamos, éramos um time pequeno com uma ideia grande. Cada funcionalidade lançada, cada correção feita, cada sugestão recebida ajudou a moldar o que somos hoje. Chegar a 1 milhão de usuários ativos é resultado direto do esforço coletivo — da nossa equipe, dos nossos parceiros e, principalmente, de você que nos acompanha.
-
-      Para marcar a ocasião, preparamos algumas novidades. Nos próximos dias, lançaremos uma série de conteúdos especiais, incluindo um balanço dos aprendizados do período e uma prévia do que estamos preparando para os próximos meses.
-
-      Também queremos ouvir você: qual foi o momento em que nossa plataforma mais te ajudou? Compartilhe com a gente nas redes sociais usando nossas hashtags oficiais. Vamos adorar conhecer a sua história.
-
-      Obrigado por fazer parte dessa jornada. E que venham os próximos milhões.`,
-      date: new Date('2025-04-01'),
-    },
-    {
-      title: 'Workshop gratuito de tecnologia',
-      image: '/noticia1.png',
-      summary:
-        'Participe do nosso workshop gratuito sobre as tendências tecnológicas para 2025.',
-      description: `Estão abertas as inscrições para o nosso workshop gratuito sobre as principais tendências tecnológicas de 2025. O evento é voltado para profissionais, estudantes e curiosos que querem entender, na prática, o que está moldando o futuro do setor.
-
-      A programação foi pensada para cobrir temas que estão no centro das discussões atuais: inteligência artificial aplicada ao dia a dia das empresas; segurança da informação em um cenário de ameaças cada vez mais sofisticadas; computação em nuvem e arquiteturas modernas; além de uma mesa-redonda sobre carreira e novas habilidades exigidas pelo mercado.
-
-      O workshop acontecerá em formato híbrido — presencial em nosso auditório e com transmissão ao vivo pela internet — para que ninguém fique de fora por questão de distância. Haverá espaço para perguntas ao final de cada palestra e também emissão de certificado de participação.
-
-      As vagas são limitadas e serão preenchidas por ordem de inscrição. Para garantir a sua, acesse a página do evento e faça o cadastro. Em caso de dúvidas, nossa equipe está à disposição pelos canais de atendimento.
-
-      Esperamos você para aprender, trocar ideias e sair com uma visão mais clara do que vem por aí.`,
-      date: new Date('2025-04-20'),
-    },
-    {
-      title: 'Atualização do aplicativo móvel',
+      title:
+        'Aplicativos móveis passam por mudanças para melhorar desempenho e estabilidade',
       image: '/noticia2.png',
       summary:
-        'Nova versão do app já está disponível com melhorias de desempenho e correções de bugs.',
-      description: `A nova versão do nosso aplicativo móvel já está disponível para download nas lojas oficiais. Esta atualização foi construída a partir do feedback de milhares de usuários e traz melhorias que impactam diretamente a experiência no dia a dia.
+        'Atualização prioriza a velocidade de abertura, a redução de falhas e uma navegação mais consistente em diferentes dispositivos.',
+      description: `O celular se tornou uma das principais ferramentas para acessar serviços digitais, consultar informações e resolver tarefas durante o dia. Por isso, problemas como demora na abertura de uma tela, interrupções inesperadas e notificações que não chegam no momento certo podem comprometer a experiência de quem depende de um aplicativo.
 
-      Entre os destaques, está um ganho significativo de desempenho: o app abre mais rápido, consome menos bateria e se comporta melhor em conexões instáveis. Também corrigimos diversos bugs relatados, especialmente aqueles relacionados a notificações que não apareciam e a travamentos ao alternar entre telas.
+Uma nova etapa de melhorias no aplicativo, em um cenário fictício de desenvolvimento, foi planejada justamente para enfrentar essas dificuldades. A iniciativa começou com a análise dos relatos enviados pelos usuários e a revisão de situações em que o sistema apresentava comportamento inconsistente. Em vez de concentrar todos os esforços em mudanças visuais, a equipe priorizou a estabilidade e a resposta dos recursos mais utilizados.
 
-      Aproveitamos para redesenhar algumas seções que eram apontadas como confusas, tornando a navegação mais direta. O processo de login também ficou mais simples, com suporte a biometria em mais dispositivos.
+Durante a análise, foram considerados diferentes fatores, incluindo a qualidade da conexão, a capacidade dos dispositivos e a quantidade de informações processadas ao abrir determinadas telas. Essa avaliação permitiu identificar etapas que poderiam ser simplificadas e operações que precisavam de tratamento mais eficiente.
 
-      Recomendamos que todos atualizem assim que possível para aproveitar as melhorias e garantir a compatibilidade com os recursos que serão lançados em breve.
+Uma das mudanças previstas envolve a organização do carregamento de conteúdo. Em algumas situações, os usuários precisavam aguardar a conclusão de várias operações antes de conseguir visualizar as informações principais. Com a revisão do fluxo, a intenção é apresentar os elementos essenciais com mais rapidez, enquanto outros detalhes são carregados conforme necessário.
 
-      Como sempre, se você encontrar qualquer problema, entre em contato com nosso suporte pelos canais habituais. Seu retorno é essencial para continuarmos evoluindo.`,
-      date: new Date('2025-05-02'),
+As notificações também receberam atenção. Alertas excessivos podem fazer com que mensagens importantes passem despercebidas, enquanto falhas de entrega deixam o usuário sem informações relevantes. A proposta é tornar os avisos mais claros e revisar as condições em que cada tipo de notificação deve ser apresentado.
+
+Outro aspecto do trabalho foi a compatibilidade. Um aplicativo pode funcionar de maneira diferente dependendo da versão do sistema operacional, da memória disponível e das características do aparelho. Por essa razão, testes em diferentes configurações são importantes para identificar comportamentos que não aparecem em um único dispositivo.
+
+A equipe também revisou situações relacionadas ao acesso à conta e à navegação entre telas. O objetivo é reduzir etapas desnecessárias e tornar mais previsível o retorno a uma atividade interrompida. Essas alterações são especialmente relevantes para pessoas que alternam entre o aplicativo e outras ferramentas durante o dia.
+
+Mesmo com testes, atualizações podem apresentar dificuldades em determinados cenários. Por isso, o acompanhamento após a disponibilização da versão é uma etapa importante. Relatos dos usuários ajudam a identificar problemas que não foram reproduzidos durante o desenvolvimento e fornecem informações para orientar novas correções.
+
+A recomendação para quem utiliza aplicativos é manter o sistema atualizado, instalar versões por meio das lojas oficiais e verificar os avisos publicados pelo responsável pelo serviço. Quando um problema persiste, registrar a versão do aplicativo, o modelo do dispositivo e os passos que levaram à falha pode ajudar a equipe de suporte a investigar a situação.
+
+A atualização representa um trabalho contínuo de manutenção. A qualidade de um aplicativo não depende apenas de novos recursos, mas também da capacidade de realizar as tarefas existentes de forma estável, segura e compreensível. Melhorias pequenas, quando aplicadas de maneira consistente, podem produzir uma diferença importante na rotina dos usuários.`,
+      date: new Date('2026-09-28T11:00:00'),
     },
     {
-      title: 'Campanha de sustentabilidade',
-      image: '/noticia2.png',
-      summary:
-        'Iniciamos uma campanha para reduzir o impacto ambiental das nossas operações.',
-      description: `Damos início oficialmente à nossa campanha de sustentabilidade, um compromisso de longo prazo com a redução do impacto ambiental das nossas operações e com a promoção de práticas mais responsáveis em toda a nossa cadeia.
-
-      O plano está estruturado em quatro pilares. O primeiro é a redução de emissões: vamos mapear e diminuir nossa pegada de carbono, priorizando fontes renováveis de energia e otimizando processos logísticos. O segundo é a gestão de resíduos: implementaremos políticas de reciclagem, reuso e descarte correto em todas as unidades. O terceiro é o consumo consciente: campanhas internas e externas para incentivar o uso racional de recursos como água, papel e energia. O quarto é a educação: parcerias com instituições para promover formação e conscientização sobre temas ambientais.
-
-      Sabemos que mudanças reais exigem consistência, não apenas discursos. Por isso, vamos publicar relatórios periódicos com nossos indicadores, metas e resultados, permitindo que qualquer pessoa acompanhe o progresso.
-
-      Convidamos clientes, parceiros e colaboradores a se engajarem nessa jornada. Pequenas atitudes, quando somadas, produzem impacto significativo. Juntos, podemos construir um futuro mais equilibrado.`,
-      date: new Date('2025-05-15'),
-    },
-    {
-      title: 'Entrevista com o CEO',
-      image: '/noticia2.png',
-      summary:
-        'Nosso CEO concedeu uma entrevista exclusiva sobre os planos da empresa para o próximo ano.',
-      description: `Em uma conversa exclusiva, nosso CEO compartilhou sua visão sobre o momento atual da empresa e os planos para o próximo ano. A entrevista abordou desde decisões estratégicas até aspectos mais pessoais da liderança.
-
-      Sobre o crescimento recente, ele foi direto: "Nada disso acontece por acaso. É fruto de escolhas consistentes, de um time comprometido e da disposição de ouvir — clientes, colaboradores, parceiros. O sucesso é coletivo." Ele destacou que a empresa seguirá investindo em tecnologia, mas sem perder de vista o fator humano que sustenta qualquer negócio.
-
-      Questionado sobre os desafios do setor, mencionou a velocidade das mudanças e a necessidade de adaptação constante: "O maior risco não é errar, é ficar parado. Preferimos testar, aprender e ajustar do que esperar a certeza absoluta." Também falou sobre a importância de manter uma cultura organizacional saudável, mesmo em momentos de crescimento acelerado.
-
-      Para o próximo ano, os planos incluem expansão para novos mercados, lançamento de produtos que estão em desenvolvimento e fortalecimento das iniciativas de sustentabilidade e inclusão. Ele adiantou que novidades importantes serão anunciadas nos próximos meses.
-
-      A entrevista completa, com trechos adicionais, está disponível em nosso canal oficial de vídeos.`,
-      date: new Date('2025-06-01'),
-    },
-    {
-      title: 'Pesquisa de satisfação 2025',
+      title:
+        'Consumo consciente ganha espaço e incentiva mudanças nos hábitos do dia a dia',
       image: '/noticia1.png',
       summary:
-        'Sua opinião é muito importante! Responda à nossa pesquisa de satisfação e ajude-nos a melhorar.',
-      description: `Está no ar a nossa pesquisa de satisfação de 2025. Este é o momento em que colocamos o microfone nas mãos de quem realmente importa: você, que usa nossos produtos e serviços todos os dias.
+        'Iniciativas de redução de desperdício e melhor aproveitamento de recursos mostram como mudanças simples podem fazer parte da rotina de famílias e empresas.',
+      description: `A preocupação com o desperdício tem levado famílias, comerciantes e organizações a observar com mais atenção a maneira como utilizam água, energia, embalagens e outros recursos. Embora as mudanças possam parecer pequenas quando consideradas individualmente, a adoção de hábitos consistentes ajuda a criar rotinas mais responsáveis.
 
-      A pesquisa é rápida — leva em média cinco minutos — e cobre temas como qualidade do atendimento, clareza das informações, desempenho das ferramentas, canais de comunicação e sugestões de melhoria. Não existem respostas certas ou erradas: queremos ouvir a sua percepção sincera, seja ela positiva ou crítica.
-          
-      Todos os dados são tratados de forma anônima e agregada. As informações coletadas serão usadas para orientar decisões internas, priorizar melhorias e definir o que entra no nosso plano de ação para os próximos meses. Em edições anteriores, foi a partir desse retorno que implementamos mudanças importantes, como a reformulação do suporte e a criação de novos canais de atendimento.
-          
-      Sua participação faz diferença real. Reserve alguns minutos, responda com atenção e nos ajude a construir uma experiência cada vez melhor. O link da pesquisa está disponível no nosso site e também foi enviado por e-mail aos usuários cadastrados.
-          
-      Desde já, obrigado pelo tempo e pela confiança.`,
-      date: new Date('2025-07-05'),
+Em uma iniciativa fictícia realizada por uma associação comunitária, moradores de diferentes bairros foram convidados a identificar situações de desperdício em suas casas e locais de trabalho. A proposta não envolvia grandes investimentos, mas uma análise prática das atividades cotidianas: luzes acesas em ambientes vazios, torneiras com vazamentos, alimentos descartados por falta de planejamento e materiais que poderiam ser reutilizados.
+
+No início, os participantes perceberam que muitos desses hábitos estavam ligados à falta de organização ou à ausência de informações. Algumas famílias compravam mais alimentos do que conseguiam consumir, enquanto pequenos estabelecimentos descartavam materiais que poderiam ter outro destino. Ao registrar essas situações, os participantes conseguiram identificar oportunidades de mudança.
+
+Uma das primeiras medidas foi planejar melhor as compras. A elaboração de listas, a verificação dos alimentos já disponíveis e o armazenamento adequado ajudaram a reduzir a perda de produtos. Em estabelecimentos comerciais, a organização do estoque também passou a ser vista como uma forma de evitar compras desnecessárias e diminuir o volume de resíduos.
+
+A utilização de energia foi outro ponto observado. Aproveitar a iluminação natural, desligar equipamentos quando não estão em uso e verificar a eficiência de aparelhos são atitudes que podem contribuir para uma utilização mais racional dos recursos. O impacto de cada medida depende das condições do local e dos hábitos anteriores, por isso acompanhar o consumo é importante para avaliar os resultados.
+
+Na gestão de resíduos, a separação correta dos materiais facilita a coleta seletiva onde esse serviço está disponível. Entretanto, separar os resíduos é apenas uma parte do processo. A redução do consumo desnecessário e a reutilização segura de materiais também ajudam a evitar que produtos descartáveis sejam utilizados sem necessidade.
+
+A iniciativa ainda destacou a importância de compartilhar informações confiáveis. Recomendações genéricas nem sempre se aplicam a todas as realidades, especialmente em locais com infraestrutura diferente. Por isso, os participantes foram orientados a consultar os serviços municipais e as organizações responsáveis pela coleta para conhecer as opções existentes em cada região.
+
+Empresas também podem contribuir ao revisar processos de compra, reduzir impressões desnecessárias e planejar melhor a utilização de materiais. Essas ações precisam ser acompanhadas por metas realistas e responsabilidades definidas, evitando que campanhas de conscientização se limitem a mensagens sem mudanças concretas na rotina.
+
+Outro ponto importante é a continuidade. É comum que novas iniciativas despertem entusiasmo nas primeiras semanas, mas manter os resultados exige acompanhamento e revisão dos hábitos. Registrar o consumo, comparar períodos e discutir dificuldades ajuda a identificar medidas que funcionam e aquelas que precisam ser adaptadas.
+
+A participação da comunidade também pode ampliar os efeitos das ações. Compartilhar experiências, organizar atividades educativas e divulgar os serviços disponíveis permite que mais pessoas conheçam alternativas adequadas à sua realidade. A colaboração, porém, deve respeitar as condições de cada família e evitar a ideia de que todas as pessoas dispõem dos mesmos recursos.
+
+O consumo consciente não significa deixar de atender necessidades importantes, mas tomar decisões com maior atenção ao uso dos recursos e às consequências do desperdício. Em muitos casos, começar por uma mudança simples e mantê-la ao longo do tempo é mais eficaz do que adotar várias medidas difíceis de sustentar.
+
+A experiência descrita é ilustrativa e não representa uma campanha real. Ainda assim, mostra como o planejamento, a informação e a participação coletiva podem transformar uma preocupação ampla em ações práticas e possíveis de acompanhar.`,
+      date: new Date('2026-09-20T09:15:00'),
+    },
+    {
+      title:
+        'Pesquisa de satisfação busca entender o que os usuários esperam dos serviços digitais',
+      image: '/noticia2.png',
+      summary:
+        'Questionário fictício reúne opiniões sobre atendimento, facilidade de uso e qualidade das informações para orientar futuras melhorias na plataforma.',
+      description: `Entender como as pessoas utilizam um serviço é uma das etapas mais importantes para melhorar sua qualidade. Indicadores técnicos mostram se uma página carrega rapidamente ou se uma operação foi concluída, mas nem sempre explicam por que uma função parece simples para algumas pessoas e confusa para outras. É nesse espaço entre os números e a experiência cotidiana que as pesquisas de satisfação podem contribuir.
+
+Em uma iniciativa fictícia, uma plataforma digital decidiu organizar uma pesquisa para conhecer melhor as expectativas de seus usuários. O questionário foi planejado para reunir opiniões sobre facilidade de navegação, clareza das informações, qualidade do atendimento e dificuldades encontradas durante o uso. A proposta também incluiu um campo aberto para sugestões que não estivessem contempladas nas perguntas principais.
+
+A preparação começou com a definição dos temas que realmente poderiam orientar decisões. Em vez de perguntar sobre todos os aspectos possíveis do serviço, a equipe selecionou questões relacionadas às atividades mais frequentes e aos problemas que apareciam com maior regularidade nos canais de suporte.
+
+Uma das preocupações foi tornar as perguntas claras e objetivas. Questões muito extensas ou que misturam vários assuntos podem dificultar a interpretação das respostas. A equipe fictícia também considerou a necessidade de oferecer opções equilibradas, evitando formular perguntas que induzissem os participantes a escolher uma resposta específica.
+
+O questionário foi organizado para permitir a participação de pessoas com diferentes níveis de familiaridade com a plataforma. Além das avaliações fechadas, os participantes poderiam descrever situações concretas em que encontraram dificuldades ou indicar recursos que gostariam de ver aprimorados.
+
+As respostas abertas podem revelar problemas que não aparecem em perguntas padronizadas. Um usuário pode avaliar positivamente o serviço de maneira geral e, ao mesmo tempo, relatar que não consegue encontrar determinada informação. Outro pode considerar a navegação simples, mas apontar que precisa de mais clareza sobre os prazos de atendimento.
+
+Para que os resultados sejam úteis, a coleta precisa ser acompanhada por critérios de organização e análise. Agrupar respostas por assunto ajuda a identificar padrões, enquanto a leitura dos comentários permite compreender o contexto de cada avaliação. É importante, porém, não tratar a opinião de um grupo voluntário como se representasse automaticamente todos os usuários.
+
+A privacidade também faz parte do planejamento. Os participantes devem receber informações claras sobre a finalidade da pesquisa e sobre como suas respostas serão utilizadas. Sempre que possível, a coleta deve evitar informações pessoais desnecessárias e seguir as regras aplicáveis à proteção de dados.
+
+Depois da coleta, o passo seguinte é transformar os resultados em prioridades. Nem toda sugestão poderá ser implementada imediatamente, seja por limitações técnicas, custos ou necessidade de estudos adicionais. Comunicar quais melhorias serão consideradas e explicar as decisões ajuda a manter expectativas realistas e demonstra que as contribuições foram analisadas.
+
+A equipe fictícia também planejou comparar os resultados com avaliações futuras. Uma pesquisa isolada oferece um retrato de determinado momento, mas a repetição em intervalos adequados pode ajudar a identificar mudanças na percepção dos usuários. Para que a comparação seja válida, é importante manter critérios consistentes e registrar alterações na metodologia.
+
+O atendimento continua sendo um elemento importante nesse processo. Reclamações recorrentes podem indicar uma falha de comunicação, uma etapa desnecessária ou uma expectativa que não está sendo atendida. Ao investigar esses relatos, a organização pode encontrar oportunidades de melhoria que não seriam identificadas apenas por meio de indicadores de acesso.
+
+A pesquisa descrita nesta reportagem é um exemplo fictício e não corresponde a um levantamento efetivamente realizado. Seu objetivo é ilustrar como a escuta organizada pode integrar um processo de melhoria contínua.
+
+No fim, uma pesquisa de satisfação só produz valor quando suas conclusões são utilizadas para orientar decisões. Perguntar é o primeiro passo; analisar com responsabilidade, estabelecer prioridades e comunicar os resultados é o que transforma as respostas em mudanças concretas.`,
+      date: new Date('2026-09-12T14:00:00'),
     },
   ]
 
@@ -245,12 +298,16 @@ async function main() {
         date: n.date,
       },
     })
+
     console.log(`Notícia criada: ${n.title}`)
   }
 
   const totalNews = await prisma.news.count()
   const totalAds = await prisma.advertisements.count()
-  console.log(`Total no banco: ${totalNews} notícias e ${totalAds} anúncios`)
+
+  console.log(
+    `Total no banco: ${totalNews} notícias e ${totalAds} anúncios`,
+  )
 }
 
 main()
